@@ -100,7 +100,8 @@ init:
                     else:
                         text meta['title']
                         if renpy.store.persistent.musicviewer_four_nowplaying_show_filenames:
-                            text nowplaying
+                            text nowplaying:
+                                size 26
                 else:
                     text nowplaying
                 if 'artist' in meta:
