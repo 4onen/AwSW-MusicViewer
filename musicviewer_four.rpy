@@ -38,42 +38,38 @@ init:
     python in musicviewer_four:
         from musicviewer_four_ref_table import music_ref_table
 
-        def show_nowplaying_manager():
-            renpy.show_screen("musicviewer_four_nowplaying_manager")
-            print("After load callback executed.")
-
-        if isinstance(renpy.config.after_load_callbacks, list):
-            renpy.config.after_load_callbacks.append(show_nowplaying_manager)
-        else:
-            renpy.config.after_load_callbacks = [show_nowplaying_manager]
-
-        prev_nowplaying = None
-
         def get_nowplaying_info():
             nowplaying = renpy.music.get_playing()
             if not nowplaying:
-                return "- None -"
-            if renpy.store.persistent.musicviewer_four_nowplaying_show_filenames:
+                return None
+            elif renpy.store.persistent.musicviewer_four_nowplaying_show_filenames:
                 return nowplaying
             else:
                 return music_ref_table.get(nowplaying, nowplaying)
-        
+
         def manager_callback(prev_nowplaying):
             if not renpy.store.persistent.musicviewer_four_nowplaying_off:
                 nowplaying = get_nowplaying_info()
-                if (nowplaying and (nowplaying != prev_nowplaying)):# or renpy.store.persistent.musicviewer_four_nowplaying_alwayson:
+                if (nowplaying and (nowplaying != prev_nowplaying)) or renpy.store.persistent.musicviewer_four_nowplaying_alwayson:
                     renpy.show_screen("musicviewer_four_nowplaying",nowplaying)
                 return nowplaying
             elif renpy.get_screen("musicviewer_four_nowplaying"):
                 renpy.hide_screen("musicviewer_four_nowplaying")
                 return None
 
-    # Now playing
-    screen musicviewer_four_nowplaying_manager:
-        default prev_nowplaying = None
-        python:
-            prev_nowplaying = musicviewer_four.manager_callback(prev_nowplaying)
+        class NowPlayingManager():
+            def __init__(self):
+                self.prev_nowplaying = None
 
+            def __call__(self):
+                self.prev_nowplaying = manager_callback(self.prev_nowplaying)
+
+        if isinstance(renpy.store.config.start_interact_callbacks,list):
+            renpy.store.config.start_interact_callbacks.append(NowPlayingManager())
+        else:
+            renpy.store.config.start_interact_callbacks = [NowPlayingManager()]
+
+    # Now playing
     transform musicviewer_four_nowplaying_tf:
         anchor (1.0, 0.0)
         align (1.0, 0.0)
@@ -97,7 +93,9 @@ init:
             padding (45, 0, 5, 50)
             
             has vbox
-            if isinstance(nowplaying, (str,unicode)):
+            if nowplaying is None:
+                text "- None -"
+            elif isinstance(nowplaying, (str,unicode)):
                 text nowplaying
             else: # Is metadata dict
                 text nowplaying['title']

@@ -13,17 +13,8 @@ class MyAwSWMod(Mod):
     author = "4onen"
     dependencies = ["MagmaLink"]
 
-    @classmethod
-    def mod_load(cls):
-        ml.register_mod_settings(cls, screen='musicviewer_four_modsettings')
-        # ( ml.find_label('splashscreen')
-        #     .search_python("renpy.pause(1.6, hard=True)")
-        #     .hook_to("musicviewer_four_show_nowplaying")
-        # )
-
-        ( ml.find_label('seccont')
-            .hook_to("musicviewer_four_show_nowplaying")
-        )
+    def mod_load(self):
+        ml.register_mod_settings(self, screen='musicviewer_four_modsettings')
 
     @staticmethod
     def mod_complete():
