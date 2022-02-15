@@ -22,8 +22,8 @@ init:
             vbox:
                 align(0.5,0.5)
                 spacing 10
-                #text "Music Viewer"
-                #use musicviewer_four_checkbox("Disable main menu \"Music\" button", "musicviewer_four_musicviewer_off")
+                text "Music Viewer"
+                use musicviewer_four_checkbox("Disable main menu \"Music\" button", "musicviewer_four_musicviewer_off")
                 text "Now Playing"
                 use musicviewer_four_checkbox("Disable \"Now Playing\"", "musicviewer_four_nowplaying_off")
                 if not persistent.musicviewer_four_nowplaying_off:
