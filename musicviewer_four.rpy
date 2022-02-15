@@ -119,8 +119,3 @@ init:
 
         if not persistent.musicviewer_four_nowplaying_alwayson:
             timer 6.0 action Hide("musicviewer_four_nowplaying")
-
-
-label musicviewer_four_show_nowplaying:
-    $ musicviewer_four.show_nowplaying_manager()
-    jump musicviewer_four_show_nowplaying_return
