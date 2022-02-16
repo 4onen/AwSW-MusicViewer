@@ -12,7 +12,7 @@ init:
         def manager_callback(prev_nowplaying):
             if not renpy.store.persistent.musicviewer_four_nowplaying_off:
                 nowplaying, meta = get_nowplaying_info()
-                if (nowplaying and (nowplaying != prev_nowplaying)) or renpy.store.persistent.musicviewer_four_nowplaying_alwayson:
+                if (nowplaying and (nowplaying != prev_nowplaying)) or (renpy.store.persistent.musicviewer_four_nowplaying_alwayson and not renpy.get_screen("musicviewer_four_nowplaying")):
                     renpy.show_screen("musicviewer_four_nowplaying",nowplaying, meta)
                 return nowplaying
             elif renpy.get_screen("musicviewer_four_nowplaying"):
