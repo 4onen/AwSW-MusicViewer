@@ -50,9 +50,9 @@ init:
     screen musicviewer_four_nowplaying(nowplaying, meta):
         frame:
             at musicviewer_four_nowplaying_tf
-            background Frame("image/ui/musicviewer_four_nowplaying_bg.png", 68, 10, 10, 68)
-            padding (45, 0, 5, 50)
-            
+            background Frame(renpy.display.im.FactorScale("image/ui/musicviewer_four_nowplaying_bg.png",2), 136, 20, 20, 136, tile=True)
+            padding (140, 0, 0, 130)
+
             has vbox
             if nowplaying is None:
                 text "- None -"
