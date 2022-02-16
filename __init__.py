@@ -20,7 +20,7 @@ class MyAwSWMod(Mod):
             .add(['imagebutton auto "image/ui/musicviewer_four_musicbutton_%s.png":'\
                  ,'    xalign 0.655'\
                  ,'    yalign 0.965'\
-                 ,'    action [Show("gallery", transition=dissolve), Show("musicviewer_four_musicroom"), Play("audio", "se/sounds/open.ogg")]'\
+                 ,'    action [Show("gallery", transition=dissolve), musicviewer_four.prepare_musicroom, Show("musicviewer_four_musicroom"), Play("audio", "se/sounds/open.ogg")]'\
                  ,'    hovered Play("audio", "se/sounds/select.ogg")'\
                 ], condition="not persistent.musicviewer_four_musicviewer_off")
             .compile_to("main_menu")

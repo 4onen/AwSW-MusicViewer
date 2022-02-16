@@ -7,6 +7,12 @@ init:
         for track in music_ref_table.keys():
             mr.add(track)
 
+        def prepare_musicroom():
+            if renpy.store.persistent.musicviewer_four_musicviewer_unlockall:
+                mr.always_unlocked = mr.filenames
+            else:
+                mr.always_unlocked = set()
+
     style musicviewer_four_musicroom_select_btn:
         background "#3333339B"
         hover_background "#ffffff9B"

@@ -24,6 +24,8 @@ init:
                 spacing 10
                 text "Music Viewer"
                 use musicviewer_four_checkbox("Disable main menu \"Music\" button", "musicviewer_four_musicviewer_off")
+                if not persistent.musicviewer_four_musicviewer_off:
+                    use musicviewer_four_checkbox("Make all songs available (Can't be undone!)", "musicviewer_four_musicviewer_unlockall")
                 text "Now Playing"
                 use musicviewer_four_checkbox("Disable \"Now Playing\"", "musicviewer_four_nowplaying_off")
                 if not persistent.musicviewer_four_nowplaying_off:
