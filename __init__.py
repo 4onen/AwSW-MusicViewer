@@ -9,7 +9,7 @@ import jz_magmalink as ml
 @loadable_mod
 class MyAwSWMod(Mod):
     name = "Music Viewer"
-    version = "v0.0"
+    version = "v0.8"
     author = "4onen"
     dependencies = ["MagmaLink"]
 
