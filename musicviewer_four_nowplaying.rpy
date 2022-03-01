@@ -2,29 +2,19 @@ init:
     python in musicviewer_four:
         from musicviewer_four_ref_table import music_ref_table
 
-        def get_nowplaying_info():
-            nowplaying = renpy.music.get_playing()
-            if not nowplaying:
-                return (None, {})
-            else:
-                return (nowplaying, music_ref_table.get(nowplaying, {}))
-
-        def manager_callback(prev_nowplaying):
-            if not renpy.store.persistent.musicviewer_four_nowplaying_off:
-                nowplaying, meta = get_nowplaying_info()
-                if (nowplaying and (nowplaying != prev_nowplaying)) or (renpy.store.persistent.musicviewer_four_nowplaying_alwayson and not renpy.get_screen("musicviewer_four_nowplaying")):
-                    renpy.show_screen("musicviewer_four_nowplaying",nowplaying, meta)
-                return nowplaying
-            elif renpy.get_screen("musicviewer_four_nowplaying"):
-                renpy.hide_screen("musicviewer_four_nowplaying")
-                return None
-
         class NowPlayingManager():
             def __init__(self):
                 self.prev_nowplaying = None
 
             def __call__(self):
-                self.prev_nowplaying = manager_callback(self.prev_nowplaying)
+                if not renpy.store.persistent.musicviewer_four_nowplaying_off:
+                    nowplaying = renpy.music.get_playing()
+                    if (nowplaying and (nowplaying != self.prev_nowplaying)) or (renpy.store.persistent.musicviewer_four_nowplaying_alwayson and not renpy.get_screen("musicviewer_four_nowplaying")):
+                        renpy.show_screen("musicviewer_four_nowplaying",nowplaying, music_ref_table.get(nowplaying, {}))
+                    self.prev_nowplaying = nowplaying
+                elif renpy.get_screen("musicviewer_four_nowplaying"):
+                    renpy.hide_screen("musicviewer_four_nowplaying")
+                    self.prev_nowplaying = None
 
         renpy.store.config.start_interact_callbacks.append(NowPlayingManager())
 
