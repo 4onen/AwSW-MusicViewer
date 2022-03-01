@@ -1,7 +1,3 @@
-
-from renpy import ast, python, store
-
-from modloader import modinfo, modast
 from modloader.modclass import Mod, loadable_mod
 
 import jz_magmalink as ml
