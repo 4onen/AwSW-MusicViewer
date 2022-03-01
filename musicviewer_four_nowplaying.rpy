@@ -26,10 +26,7 @@ init:
             def __call__(self):
                 self.prev_nowplaying = manager_callback(self.prev_nowplaying)
 
-        if isinstance(renpy.store.config.start_interact_callbacks,list):
-            renpy.store.config.start_interact_callbacks.append(NowPlayingManager())
-        else:
-            renpy.store.config.start_interact_callbacks = [NowPlayingManager()]
+        renpy.store.config.start_interact_callbacks.append(NowPlayingManager())
 
     transform musicviewer_four_nowplaying_tf:
         anchor (1.0, 0.0)
