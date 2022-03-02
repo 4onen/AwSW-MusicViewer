@@ -32,3 +32,6 @@ def metalookup(file):
         meta = _extract_meta(file)
         _meta_cache[file] = meta
         return meta
+
+def is_supported(file):
+    return TinyTag.is_supported(renpy.loader.transfn(file))

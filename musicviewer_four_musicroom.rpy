@@ -1,8 +1,10 @@
 init:
     python in musicviewer_four:
-        from musicviewer_four_metalookup import metalookup
+        from musicviewer_four_metalookup import metalookup, is_supported
 
-        tracks = [f for f in renpy.list_files() if f.startswith("mx/")]
+        tracks = [f for f in renpy.list_files() if (f.startswith("mx/") or '/mx/' in f) and is_supported(f)]
+
+        tracks = [f if f.startswith("mx/") else f[f.find('/mx/')+1:] for f in tracks]
 
         mr = renpy.store.MusicRoom(fadeout=0.5, fadein=0.5)
 
