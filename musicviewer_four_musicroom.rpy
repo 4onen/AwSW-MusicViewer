@@ -2,20 +2,28 @@ init:
     python in musicviewer_four:
         from musicviewer_four_metalookup import metalookup, is_supported
 
-        tracks = [f for f in renpy.list_files() if (f.startswith("mx/") or '/mx/' in f) and is_supported(f)]
+        mr = None
+        tracks = []
 
-        tracks = [f if f.startswith("mx/") else f[f.find('/mx/')+1:] for f in tracks]
+        def setup():
+            global mr
+            global tracks
 
-        mr = renpy.store.MusicRoom(fadeout=0.5, fadein=0.5)
+            tracklist = [f if f.startswith('mx/') else f[f.find('/mx/')+1:] for f in renpy.list_files() if (f.startswith("mx/") or '/mx/' in f) and is_supported(f)]
+            seen_tracks = set()
+            tracks = []
 
-        for track in tracks:
-            mr.add(track)
+            for track in tracklist:
+                if track in seen_tracks:
+                    continue
+                seen_tracks.add(track)
+                tracks.append(track)
 
-        def prepare_musicroom():
-            if renpy.store.persistent.musicviewer_four_musicviewer_unlockall:
-                mr.always_unlocked = mr.filenames
-            else:
-                mr.always_unlocked = set()
+
+            mr = renpy.store.MusicRoom(fadeout=0.5, fadein=0.5)
+
+            for track in tracks:
+                mr.add(track, always_unlocked = renpy.store.persistent.musicviewer_four_musicviewer_unlockall)
 
     style musicviewer_four_musicroom_select_btn:
         background "#3333339B"
