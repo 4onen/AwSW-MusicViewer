@@ -1,10 +1,12 @@
 init:
     python in musicviewer_four:
-        from musicviewer_four_ref_table import music_ref_table
+        from musicviewer_four_metalookup import metalookup
+
+        tracks = [f for f in renpy.list_files() if f.startswith("mx/")]
 
         mr = renpy.store.MusicRoom(fadeout=0.5, fadein=0.5)
 
-        for track in music_ref_table.keys():
+        for track in tracks:
             mr.add(track)
 
         def prepare_musicroom():
@@ -42,7 +44,7 @@ init:
                     draggable True
                     mousewheel True
 
-                    for filename in musicviewer_four.music_ref_table:
+                    for filename in musicviewer_four.tracks:
                         $ songlabel = "[filename]" if musicviewer_four.mr.is_unlocked(filename) else "{s}[filename]{/s}" 
                         textbutton songlabel:
                             style "musicviewer_four_musicroom_select_btn"
@@ -63,7 +65,7 @@ init:
 
                 python:
                     nowplaying = renpy.music.get_playing()
-                    meta = musicviewer_four.music_ref_table.get(nowplaying)
+                    meta = musicviewer_four.metalookup(nowplaying)
 
                 if not nowplaying:
                     text "{b}Select a song{/b}":

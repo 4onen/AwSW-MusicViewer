@@ -1,6 +1,6 @@
 init:
     python in musicviewer_four:
-        from musicviewer_four_ref_table import music_ref_table
+        from musicviewer_four_metalookup import metalookup
 
         class NowPlayingManager():
             def __init__(self):
@@ -10,7 +10,7 @@ init:
                 if not renpy.store.persistent.musicviewer_four_nowplaying_off:
                     nowplaying = renpy.music.get_playing()
                     if (nowplaying and (nowplaying != self.prev_nowplaying)) or (renpy.store.persistent.musicviewer_four_nowplaying_alwayson and not renpy.get_screen("musicviewer_four_nowplaying")):
-                        renpy.show_screen("musicviewer_four_nowplaying",nowplaying, music_ref_table.get(nowplaying, {}))
+                        renpy.show_screen("musicviewer_four_nowplaying",nowplaying, metalookup(nowplaying))
                     self.prev_nowplaying = nowplaying
                 elif renpy.get_screen("musicviewer_four_nowplaying"):
                     renpy.hide_screen("musicviewer_four_nowplaying")
