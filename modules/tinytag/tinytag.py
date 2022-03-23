@@ -48,6 +48,7 @@ import io
 import sys
 from io import BytesIO
 import re
+import renpy.loader
 
 DEBUG = os.environ.get('DEBUG', False)  # some of the parsers can print debug info
 
@@ -179,10 +180,10 @@ class TinyTag(object):
             pass
         else:
             filename = os.path.expanduser(filename)
-        size = os.path.getsize(filename)
-        if not size > 0:
+        if not renpy.loader.loadable(filename):
             return TinyTag(None, 0)
-        with io.open(filename, 'rb') as af:
+        with renpy.loader.load(filename) as af:
+            size = af.length if isinstance(af, renpy.loader.SubFile) else os.path.getsize(filename)
             parser_class = cls.get_parser_class(filename, af)
             tag = parser_class(af, size, ignore_errors=ignore_errors)
             tag._filename = filename

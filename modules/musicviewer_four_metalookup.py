@@ -5,9 +5,11 @@ import os.path
 _EXTRACT_FIELDS = ['title','artist','album']
 
 def _extract_meta(file):
-    print(file)
-    print(renpy.loader.transfn(file))
-    refs = TinyTag.get(renpy.loader.transfn(file), duration=False, ignore_errors=True)
+    try:
+        filepath = renpy.loader.transfn(file)
+    except:
+        filepath = file
+    refs = TinyTag.get((filepath), duration=False, ignore_errors=True)
     meta = {field:getattr(refs,field) for field in _EXTRACT_FIELDS if hasattr(refs,field) and getattr(refs,field)}
 
     if not meta:
@@ -34,4 +36,8 @@ def metalookup(file):
         return meta
 
 def is_supported(file):
-    return TinyTag.is_supported(renpy.loader.transfn(file))
+    try:
+        file = renpy.loader.transfn(file)
+    except:
+        pass
+    return TinyTag.is_supported(file)
