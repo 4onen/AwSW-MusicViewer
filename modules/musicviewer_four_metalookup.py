@@ -1,5 +1,4 @@
 from tinytag import TinyTag
-import renpy
 import os.path
 
 _EXTRACT_FIELDS = ['title','artist','album']
@@ -32,8 +31,4 @@ def metalookup(file):
         return meta
 
 def is_supported(file):
-    try:
-        file = renpy.loader.transfn(file)
-    except:
-        pass
     return TinyTag.is_supported(file)
