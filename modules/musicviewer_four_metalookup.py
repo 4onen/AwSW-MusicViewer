@@ -5,11 +5,7 @@ import os.path
 _EXTRACT_FIELDS = ['title','artist','album']
 
 def _extract_meta(file):
-    try:
-        filepath = renpy.loader.transfn(file)
-    except:
-        filepath = file
-    refs = TinyTag.get((filepath), duration=False, ignore_errors=True)
+    refs = TinyTag.get((file), duration=False, ignore_errors=True)
     meta = {field:getattr(refs,field) for field in _EXTRACT_FIELDS if hasattr(refs,field) and getattr(refs,field)}
 
     if not meta:
