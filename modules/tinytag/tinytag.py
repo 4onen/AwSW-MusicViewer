@@ -49,7 +49,6 @@ import sys
 from io import BytesIO
 import re
 import renpy.loader
-import renpy.config
 
 DEBUG = os.environ.get('DEBUG', False)  # some of the parsers can print debug info
 
