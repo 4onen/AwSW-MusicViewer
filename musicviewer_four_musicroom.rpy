@@ -38,7 +38,8 @@ init:
         color "#ffffff"
         insensitive_color "#cccccc"
 
-    screen musicviewer_four_musicroom tag gallery_page:
+    screen musicviewer_four_musicroom():
+        tag gallery_page
         on "show" action Stop("music", fadeout=0.5)
         on "hide" action Play("music", "mx/menu.ogg")
 
