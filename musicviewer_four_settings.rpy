@@ -15,7 +15,8 @@ init:
                 focus_mask None
             text label
 
-    screen musicviewer_four_modsettings tag smallscreen2:
+    screen musicviewer_four_modsettings():
+        tag smallscreen2
         modal True
         window id "musicviewer_four_modsettings" at popup2:
             style "smallwindow"
