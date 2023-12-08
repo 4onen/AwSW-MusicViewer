@@ -1,6 +1,5 @@
 from modloader.modclass import Mod, loadable_mod
 
-import jz_magmalink as ml
 
 @loadable_mod
 class MyAwSWMod(Mod):
@@ -10,6 +9,8 @@ class MyAwSWMod(Mod):
     dependencies = ["MagmaLink"]
 
     def mod_load(self):
+        import jz_magmalink as ml
+
         ml.register_mod_settings(self, screen='musicviewer_four_modsettings')
 
         ( ml.Overlay()
