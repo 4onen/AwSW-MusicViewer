@@ -3,3 +3,5 @@
 	- commit = 9e9edf6abce4c42bdc1675159f67a1d65187dd6c
 - Removed AIFF support, as AwSW lacked the requisite modules.
 - Changed file loading to go through renpy.loader.load.
+- Removed self assignment in ID3._decode_string for the unknown encoding case.
+- Removed two struct.unpack.__getitem__ calls in Wma._parse_tag that were not used.

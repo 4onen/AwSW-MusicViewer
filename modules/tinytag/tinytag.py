@@ -32,7 +32,6 @@
 
 from __future__ import print_function
 
-# import aifc
 import json
 import operator
 from collections import OrderedDict, defaultdict
@@ -789,7 +788,6 @@ class ID3(TinyTag):
                 bytestr = bytestr[1:]
                 encoding = 'UTF-8'
             else:
-                bytestr = bytestr
                 encoding = default_encoding  # wild guess
             if bytestr[:4] == b'eng\x00':
                 bytestr = bytestr[4:]  # remove language
@@ -1134,8 +1132,8 @@ class Wma(TinyTag):
         guid = fh.read(16)  # 128 bit GUID
         if guid != b'0&\xb2u\x8ef\xcf\x11\xa6\xd9\x00\xaa\x00b\xcel':
             return  # not a valid ASF container! see: http://www.garykessler.net/library/file_sigs.html
-        struct.unpack('Q', fh.read(8))[0]  # size
-        struct.unpack('I', fh.read(4))[0]  # obj_count
+        struct.unpack('Q', fh.read(8))  # size
+        struct.unpack('I', fh.read(4))  # obj_count
         if fh.read(2) != b'\x01\x02':
             # http://web.archive.org/web/20131203084402/http://msdn.microsoft.com/en-us/library/bb643323.aspx#_Toc521913958
             return  # not a valid asf header!
