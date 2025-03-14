@@ -4,7 +4,7 @@ from modloader.modclass import Mod, loadable_mod
 @loadable_mod
 class MyAwSWMod(Mod):
     name = "Music Viewer"
-    version = "v0.8"
+    version = "v0.9"
     author = "4onen"
     dependencies = ["MagmaLink"]
 

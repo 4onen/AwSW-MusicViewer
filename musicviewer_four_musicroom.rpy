@@ -9,7 +9,7 @@ init:
             global mr
             global tracks
 
-            tracklist = [f if f.startswith('mx/') else f[f.find('/mx/')+1:] for f in renpy.list_files() if (f.startswith("mx/") or '/mx/' in f) and is_supported(f)]
+            tracklist = sorted([f if f.startswith('mx/') else f[f.find('/mx/')+1:] for f in renpy.list_files() if (f.startswith("mx/") or '/mx/' in f) and is_supported(f)])
             seen_tracks = set()
             tracks = []
 
